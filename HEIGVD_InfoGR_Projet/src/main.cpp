@@ -63,9 +63,9 @@ void renderScene(void)
         Material *blackMaterial = new Material(color4(0,0,0, 1), color4(0,0,0, 1), color4(0,0,0, 1), color4(0,0,0, 1), 0);
         blackMaterial->apply();
         
-        Game::debug->showAxes(0, 8, 0);
+        Game::debug->showAxes();
         
-        Game::scrInfos->drawScreenInfos(WIN_W, WIN_H);
+        Game::debug->showDebugInfos();
     }
     
     glutSwapBuffers();
@@ -87,29 +87,6 @@ void idle() {
     if(Game::camera->isOnFloor()) {
         float terrainY = Game::terrain->getRealHeight(Game::camera->getX(), Game::camera->getZ());
         Game::camera->setY(terrainY);
-    }
-    
-    if(Game::debug->isDebug()) {
-        Game::scrInfos->set("01_camX", "Camera X : %f", Game::camera->getX());
-        Game::scrInfos->set("02_camY", "Camera Y : %f", Game::camera->getY());
-        Game::scrInfos->set("03_camZ", "Camera Z : %f", Game::camera->getZ());
-        //Game::scrInfos->set("04_camAngle", "Camera angle : %f", Game::camera->getAngle());
-        
-        //Game::scrInfos->set("05_sep1", "------------------------");
-        
-        //Game::scrInfos->set("06_camTerrX", "Terrain x: %f", terrainX);
-        //Game::scrInfos->set("07_camTerrY", "Terrain y: %f", terrainY);
-        //Game::scrInfos->set("08_camTerrZ", "Terrain z: %f", terrainZ);
-        
-        Game::scrInfos->set("09_sep", "------------------------");
-        
-        Game::scrInfos->set("10_terrW", "Terrain width: %d", Game::terrain->width());
-        Game::scrInfos->set("11_terrL", "Terrain length: %d", Game::terrain->length());
-        Game::scrInfos->set("12_terrScale", "Terrain scale: %f", Game::terrain->getScale());
-        
-        Game::scrInfos->set("13_sep", "------------------------");
-        
-        Game::scrInfos->set("14_fps", "FPS: %d", Game::stats->getFPS());
     }
     
     glutPostRedisplay();

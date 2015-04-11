@@ -1,6 +1,7 @@
 ## OpenGL/GLUT Game
 
 ### TODO
+- Menu
 - Brouillard
 - Class light
 - Class materials (comme textures)
@@ -12,9 +13,6 @@
     - Herbe
     - Cailloux
     - Neige
-- Camera doit rester au-dessus du terrain (bug)
-- Bouger la camera avec la souris (FPS)
-- Pouvoir sauter
 - Ajouter objets aléatoirement
     - Arbres
     - « Ennemis »
@@ -25,17 +23,26 @@
     - Moléson
     - Pléiades
     - Dents du midi
-- Ajouter « téléphérique » ou quelque chose comme ça
-    - Sur l’axe X ou Z
-    - Du point le plus bas, au point le plus haut sur cet axe
-    - Pouvoir prendre le téléphérique pour monter en haut
-    - Cabines ne font que monter, pas descendre (plus simple)
-- Colisions : http://www.swiftless.com/tutorials/opengl/collision.html
+- Collisions : http://www.swiftless.com/tutorials/opengl/collision.html
+- Skybox à la place de Skydome ?
+    - https://sidvind.com/wiki/Skybox_tutorial
+    - http://raptor.developpez.com/tutorial/opengl/skybox/
+
+### Done
+
+- Camera doit rester au-dessus du terrain (bug)
+- Bouger la camera avec la souris (FPS)
+- Pouvoir sauter
 
 ### Améliorations possibles
 - Plusieurs textures sur le terrain (fonction de la hauteur, etc) (http://3dgep.com/multi-textured-terrain-in-opengl/)
 - Utiliser VBO pour accélérer rendu terrain : http://www.swiftless.com/tutorials/opengl/6_vbo.html
 - Display Lists : http://www.swiftless.com/tutorials/opengl/displaylists.html
+- Ajouter « téléphérique » ou quelque chose comme ça
+    - Sur l’axe X ou Z
+    - Du point le plus bas, au point le plus haut sur cet axe
+    - Pouvoir prendre le téléphérique pour monter en haut
+    - Cabines ne font que monter, pas descendre (plus simple)
 
 ### Cahier des charges
 

@@ -8,25 +8,128 @@
 
 #include "menu.h"
 
-int Menu::create()
+void MenuEntry::toggleSelected()
 {
-    void (*func)(int value) {
+    if(type == Toggle)
+    {
+        selected = !selected;
+    }
+}
+
+TypeMenuEntry MenuEntry::getType()
+{
+    return type;
+}
+
+char* MenuEntry::getText()
+{
+    return text;
+}
+
+int MenuEntry::getValue()
+{
+    return value;
+}
+
+int MenuEntry::getPos()
+{
+    return pos;
+}
+
+Menu* MenuEntry::getMenu()
+{
+    return submenu;
+}
+
+bool MenuEntry::isSelected()
+{
+    return selected;
+}
+
+void Menu::create()
+{
+    menuId = glutCreateMenu(changeFunc);
+    
+    for(int i = 0; i < entries.size(); i++) {
+        std::string text = entries[i]->getText();
         
-    };
-    
-    return glutCreateMenu(func);
+        if(entries[i]->getType() == Simple) {
+            glutAddMenuEntry(text.c_str(), entries[i]->getValue());
+        } else if(entries[i]->getType() == Toggle) {
+            if(entries[i]->isSelected()) {
+                text = "[✓] "+ text;
+            } else {
+                text = "[   ] "+ text;
+            }
+            
+            glutAddMenuEntry(text.c_str(), entries[i]->getValue());
+        } else if(entries[i]->getType() == Submenu) {
+            glutAddSubMenu(text.c_str(), entries[i]->getMenu()->getId());
+        }
+    }
 }
 
-void Menu::addEntry(char* text, bool selected)
+void Menu::update()
 {
-    
-}
-void Menu::addSubMenu(Menu *submenu)
-{
-    
+    for(int i = 0; i < entries.size(); i++) {
+        std::string text = entries[i]->getText();
+        
+        if(entries[i]->getType() == Toggle) {
+            if(entries[i]->isSelected()) {
+                text = "[✓] "+ text;
+            } else {
+                text = "[   ] "+ text;
+            }
+            
+            
+            glutChangeToMenuEntry(entries[i]->getPos(), text.c_str(), entries[i]->getValue());
+        }
+    }
 }
 
-int menIdPolyMode;
+void Menu::addEntry(char* text, TypeMenuEntry type, int value, bool selected)
+{
+    entries.push_back(new MenuEntry((int)entries.size()+1, text, type, value, selected));
+}
+
+void Menu::addSubMenu(char* text, Menu *submenu)
+{
+    entries.push_back(new MenuEntry((int)entries.size()+1, text, submenu));
+}
+
+MenuEntry* Menu::getEntryFromValue(int value)
+{
+    MenuEntry* entry = NULL;
+    
+    for(int i = 0; i < entries.size(); i++) {
+        if(entries[i]->getValue() == value) {
+            entry = entries[i];
+        }
+    }
+    
+    return entry;
+}
+
+void Menu::toggleEntryFromValue(int value)
+{
+    for(int i = 0; i < entries.size(); i++) {
+        if(entries[i]->getValue() == value && entries[i]->getType() == Toggle) {
+            entries[i]->toggleSelected();
+        }
+    }
+}
+
+int Menu::getId()
+{
+    return menuId;
+}
+
+void Menu::attach(int key)
+{
+    glutAttachMenu(key);
+}
+
+/*int menIdPolyMode;
 
 // Gestion des menus
 // menu principal
@@ -79,10 +182,64 @@ void menuPolyMode(int value){
             glutChangeToMenuEntry(3, "Facettes pleines ✓", 3);
             break;
     };
-};
+};*/
+
+Menu *polygonModeMenu;
+Menu *mainMenu;
+
+void changeMainMenu(int value)
+{
+    switch (value) {
+        case 1:
+            
+            break;
+            
+        default:
+            break;
+    }
+    printf("Main menu selected: %d\n", value);
+}
+
+void changePolygonModeMenu(int value)
+{
+    printf("Polygons menu selected: %d\n", value);
+    switch (value) {
+        case 1:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+            break;
+            
+        case 2:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            break;
+            
+        case 3:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            break;
+            
+        default:
+            break;
+    }
+    
+    polygonModeMenu->toggleEntryFromValue(value);
+    polygonModeMenu->update();
+}
 
 void createMenus(void) {
-    // Création du sous-menu Couleur
+    polygonModeMenu = new Menu(changePolygonModeMenu);
+    polygonModeMenu->addEntry("Sommets", Toggle, 1, false);
+    polygonModeMenu->addEntry("Fils-de-fer", Toggle, 2, false);
+    polygonModeMenu->addEntry("Facettes", Toggle, 3, true);
+    polygonModeMenu->create();
+    
+    mainMenu = new Menu(changeMainMenu);
+    mainMenu->addEntry("Test simple", Simple, 1, false);
+    mainMenu->addEntry("Test toggle", Toggle, 2, false);
+    mainMenu->addSubMenu("Mode de polygones", polygonModeMenu);
+    mainMenu->create();
+    mainMenu->attach(GLUT_RIGHT_BUTTON);
+    
+    
+    /*// Création du sous-menu Couleur
     // Attention : les sous-menus sont crée toujours avant les menus
     menIdPolyMode = glutCreateMenu(menuPolyMode);
     glutAddMenuEntry("Sommets", 1);
@@ -95,5 +252,5 @@ void createMenus(void) {
     glutAddMenuEntry("Translation On ",2);
     glutAddSubMenu("Mode Polygone", menIdPolyMode); // Ajute un sous-menu
     glutAddMenuEntry("Quitter",3);
-    glutAttachMenu(GLUT_RIGHT_BUTTON); // attache le menu au clic gauche de la souris
+    glutAttachMenu(GLUT_RIGHT_BUTTON); // attache le menu au clic gauche de la souris*/
 };

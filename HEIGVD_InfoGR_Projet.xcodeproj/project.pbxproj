@@ -20,15 +20,15 @@
 		BE2F9B051AD9372F0064295A /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AD31AD9372F0064295A /* Menu.cpp */; };
 		BE2F9B061AD9372F0064295A /* Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AD41AD9372F0064295A /* Stats.cpp */; };
 		BE2F9B071AD9372F0064295A /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AD61AD9372F0064295A /* Keyboard.cpp */; };
-		BE2F9B081AD9372F0064295A /* Camera - copie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AD91AD9372F0064295A /* Camera - copie.cpp */; };
-		BE2F9B091AD9372F0064295A /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9ADB1AD9372F0064295A /* camera.cpp */; };
-		BE2F9B0A1AD9372F0064295A /* terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9ADE1AD9372F0064295A /* terrain.cpp */; };
-		BE2F9B0B1AD9372F0064295A /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AE11AD9372F0064295A /* world.cpp */; };
 		BE2F9B0C1AD9372F0064295A /* Skydome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AE41AD9372F0064295A /* Skydome.cpp */; };
 		BE2F9B0D1AD9372F0064295A /* Textures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AE61AD9372F0064295A /* Textures.cpp */; };
 		BE2F9B0E1AD9372F0064295A /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AEB1AD9372F0064295A /* Material.cpp */; };
 		BE2F9B0F1AD9372F0064295A /* ScreenInfos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AFB1AD9372F0064295A /* ScreenInfos.cpp */; };
 		BE2F9B101AD9372F0064295A /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE2F9AFC1AD9372F0064295A /* Debug.cpp */; };
+		BEA8BD0B1AD93AFB00424CA3 /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEA8BD051AD93AFB00424CA3 /* lodepng.cpp */; };
+		BEA8BD0C1AD93AFB00424CA3 /* PngImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEA8BD071AD93AFB00424CA3 /* PngImage.cpp */; };
+		BEA8BD0D1AD93AFB00424CA3 /* vec3f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEA8BD091AD93AFB00424CA3 /* vec3f.cpp */; };
+		BEA8BD101AD93D2100424CA3 /* Terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEA8BD0E1AD93D2100424CA3 /* Terrain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,16 +66,6 @@
 		BE2F9AD51AD9372F0064295A /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		BE2F9AD61AD9372F0064295A /* Keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		BE2F9AD71AD9372F0064295A /* Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keyboard.h; sourceTree = "<group>"; };
-		BE2F9AD91AD9372F0064295A /* Camera - copie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Camera - copie.cpp"; sourceTree = "<group>"; };
-		BE2F9ADA1AD9372F0064295A /* Camera - copie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Camera - copie.h"; sourceTree = "<group>"; };
-		BE2F9ADB1AD9372F0064295A /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
-		BE2F9ADC1AD9372F0064295A /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		BE2F9ADD1AD9372F0064295A /* Moleson_pres.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = Moleson_pres.raw; sourceTree = "<group>"; };
-		BE2F9ADE1AD9372F0064295A /* terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain.cpp; sourceTree = "<group>"; };
-		BE2F9ADF1AD9372F0064295A /* terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = terrain.h; sourceTree = "<group>"; };
-		BE2F9AE01AD9372F0064295A /* Terrain.raw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terrain.raw; sourceTree = "<group>"; };
-		BE2F9AE11AD9372F0064295A /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
-		BE2F9AE21AD9372F0064295A /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = world.h; sourceTree = "<group>"; };
 		BE2F9AE31AD9372F0064295A /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
 		BE2F9AE41AD9372F0064295A /* Skydome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skydome.cpp; sourceTree = "<group>"; };
 		BE2F9AE51AD9372F0064295A /* Skydome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skydome.h; sourceTree = "<group>"; };
@@ -100,6 +90,14 @@
 		BE2F9AFB1AD9372F0064295A /* ScreenInfos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenInfos.cpp; sourceTree = "<group>"; };
 		BE2F9AFC1AD9372F0064295A /* Debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debug.cpp; sourceTree = "<group>"; };
 		BE2F9B111AD937740064295A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		BEA8BD051AD93AFB00424CA3 /* lodepng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng.cpp; sourceTree = "<group>"; };
+		BEA8BD061AD93AFB00424CA3 /* lodepng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lodepng.h; sourceTree = "<group>"; };
+		BEA8BD071AD93AFB00424CA3 /* PngImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PngImage.cpp; sourceTree = "<group>"; };
+		BEA8BD081AD93AFB00424CA3 /* PngImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PngImage.h; sourceTree = "<group>"; };
+		BEA8BD091AD93AFB00424CA3 /* vec3f.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vec3f.cpp; sourceTree = "<group>"; };
+		BEA8BD0A1AD93AFB00424CA3 /* vec3f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3f.h; sourceTree = "<group>"; };
+		BEA8BD0E1AD93D2100424CA3 /* Terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Terrain.cpp; sourceTree = "<group>"; };
+		BEA8BD0F1AD93D2100424CA3 /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,11 +135,11 @@
 		BE2F9AB81AD936CB0064295A /* HEIGVD_InfoGR_Projet */ = {
 			isa = PBXGroup;
 			children = (
-				BEA8BD021AD9383D00424CA3 /* inc */,
+				BE2F9AED1AD9372F0064295A /* data */,
+				BEA8BD041AD93AFB00424CA3 /* lib */,
+				BEA8BD111AD93E0400424CA3 /* inc */,
 				BEA8BD011AD9383600424CA3 /* src */,
 				BE2F9AD21AD9372F0064295A /* README.md */,
-				BE2F9AD81AD9372F0064295A /* _old */,
-				BE2F9AED1AD9372F0064295A /* data */,
 			);
 			path = HEIGVD_InfoGR_Projet;
 			sourceTree = "<group>";
@@ -152,23 +150,6 @@
 				BE2F9AC81AD9372F0064295A /* Snowman.cpp */,
 			);
 			path = GameObjects;
-			sourceTree = "<group>";
-		};
-		BE2F9AD81AD9372F0064295A /* _old */ = {
-			isa = PBXGroup;
-			children = (
-				BE2F9AD91AD9372F0064295A /* Camera - copie.cpp */,
-				BE2F9ADA1AD9372F0064295A /* Camera - copie.h */,
-				BE2F9ADB1AD9372F0064295A /* camera.cpp */,
-				BE2F9ADC1AD9372F0064295A /* camera.h */,
-				BE2F9ADD1AD9372F0064295A /* Moleson_pres.raw */,
-				BE2F9ADE1AD9372F0064295A /* terrain.cpp */,
-				BE2F9ADF1AD9372F0064295A /* terrain.h */,
-				BE2F9AE01AD9372F0064295A /* Terrain.raw */,
-				BE2F9AE11AD9372F0064295A /* world.cpp */,
-				BE2F9AE21AD9372F0064295A /* world.h */,
-			);
-			path = _old;
 			sourceTree = "<group>";
 		};
 		BE2F9AED1AD9372F0064295A /* data */ = {
@@ -208,48 +189,63 @@
 		BEA8BD011AD9383600424CA3 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BE2F9AC71AD9372F0064295A /* GameObjects */,
 				BE2F9ACD1AD9372F0064295A /* main.cpp */,
 				BE2F9ACE1AD9372F0064295A /* Game.cpp */,
-				BE2F9AC61AD9372F0064295A /* GameObject.cpp */,
-				BE2F9ACA1AD9372F0064295A /* World.cpp */,
+				BE2F9AC51AD9372F0064295A /* Player.cpp */,
 				BE2F9AD11AD9372F0064295A /* Camera.cpp */,
+				BE2F9ACA1AD9372F0064295A /* World.cpp */,
+				BE2F9AE41AD9372F0064295A /* Skydome.cpp */,
+				BEA8BD0E1AD93D2100424CA3 /* Terrain.cpp */,
+				BE2F9AEB1AD9372F0064295A /* Material.cpp */,
+				BE2F9AE61AD9372F0064295A /* Textures.cpp */,
+				BE2F9AC61AD9372F0064295A /* GameObject.cpp */,
+				BE2F9AC71AD9372F0064295A /* GameObjects */,
+				BE2F9AD61AD9372F0064295A /* Keyboard.cpp */,
+				BE2F9AFB1AD9372F0064295A /* ScreenInfos.cpp */,
 				BE2F9AD31AD9372F0064295A /* Menu.cpp */,
 				BE2F9AD41AD9372F0064295A /* Stats.cpp */,
-				BE2F9AD61AD9372F0064295A /* Keyboard.cpp */,
-				BE2F9AE41AD9372F0064295A /* Skydome.cpp */,
-				BE2F9AE61AD9372F0064295A /* Textures.cpp */,
-				BE2F9AEB1AD9372F0064295A /* Material.cpp */,
-				BE2F9AFB1AD9372F0064295A /* ScreenInfos.cpp */,
 				BE2F9AFC1AD9372F0064295A /* Debug.cpp */,
-				BE2F9AC51AD9372F0064295A /* Player.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
 		};
-		BEA8BD021AD9383D00424CA3 /* inc */ = {
+		BEA8BD041AD93AFB00424CA3 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				BEA8BD031AD938AB00424CA3 /* GameObjects */,
+				BEA8BD051AD93AFB00424CA3 /* lodepng.cpp */,
+				BEA8BD061AD93AFB00424CA3 /* lodepng.h */,
+				BEA8BD071AD93AFB00424CA3 /* PngImage.cpp */,
+				BEA8BD081AD93AFB00424CA3 /* PngImage.h */,
+				BEA8BD091AD93AFB00424CA3 /* vec3f.cpp */,
+				BEA8BD0A1AD93AFB00424CA3 /* vec3f.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		BEA8BD111AD93E0400424CA3 /* inc */ = {
+			isa = PBXGroup;
+			children = (
 				BE2F9AEA1AD9372F0064295A /* main.h */,
 				BE2F9ACF1AD9372F0064295A /* Game.h */,
 				BE2F9ACB1AD9372F0064295A /* Player.h */,
-				BE2F9ACC1AD9372F0064295A /* World.h */,
 				BE2F9AD01AD9372F0064295A /* Camera.h */,
-				BE2F9AD51AD9372F0064295A /* Stats.h */,
-				BE2F9AD71AD9372F0064295A /* Keyboard.h */,
-				BE2F9AE31AD9372F0064295A /* Menu.h */,
+				BE2F9ACC1AD9372F0064295A /* World.h */,
 				BE2F9AE51AD9372F0064295A /* Skydome.h */,
+				BEA8BD0F1AD93D2100424CA3 /* Terrain.h */,
 				BE2F9AE71AD9372F0064295A /* Material.h */,
-				BE2F9AE81AD9372F0064295A /* Debug.h */,
-				BE2F9AE91AD9372F0064295A /* ScreenInfos.h */,
 				BE2F9AEC1AD9372F0064295A /* Textures.h */,
 				BE2F9AC41AD9372F0064295A /* GameObject.h */,
+				BEA8BD121AD93E1100424CA3 /* GameObjects */,
+				BE2F9AD71AD9372F0064295A /* Keyboard.h */,
+				BE2F9AE91AD9372F0064295A /* ScreenInfos.h */,
+				BE2F9AE31AD9372F0064295A /* Menu.h */,
+				BE2F9AD51AD9372F0064295A /* Stats.h */,
+				BE2F9AE81AD9372F0064295A /* Debug.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
 		};
-		BEA8BD031AD938AB00424CA3 /* GameObjects */ = {
+		BEA8BD121AD93E1100424CA3 /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
 				BE2F9AC91AD9372F0064295A /* Snowman.h */,
@@ -313,12 +309,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE2F9B091AD9372F0064295A /* camera.cpp in Sources */,
 				BE2F9B101AD9372F0064295A /* Debug.cpp in Sources */,
 				BE2F9B051AD9372F0064295A /* Menu.cpp in Sources */,
 				BE2F9AFE1AD9372F0064295A /* GameObject.cpp in Sources */,
-				BE2F9B0A1AD9372F0064295A /* terrain.cpp in Sources */,
-				BE2F9B0B1AD9372F0064295A /* world.cpp in Sources */,
+				BEA8BD0B1AD93AFB00424CA3 /* lodepng.cpp in Sources */,
 				BE2F9AFD1AD9372F0064295A /* Player.cpp in Sources */,
 				BE2F9B031AD9372F0064295A /* Camera.cpp in Sources */,
 				BE2F9B071AD9372F0064295A /* Keyboard.cpp in Sources */,
@@ -329,10 +323,12 @@
 				BE2F9B021AD9372F0064295A /* Game.cpp in Sources */,
 				BE2F9B011AD9372F0064295A /* main.cpp in Sources */,
 				BE2F9B0F1AD9372F0064295A /* ScreenInfos.cpp in Sources */,
+				BEA8BD101AD93D2100424CA3 /* Terrain.cpp in Sources */,
 				BE2F9B041AD9372F0064295A /* README.md in Sources */,
-				BE2F9B081AD9372F0064295A /* Camera - copie.cpp in Sources */,
 				BE2F9AFF1AD9372F0064295A /* Snowman.cpp in Sources */,
 				BE2F9B061AD9372F0064295A /* Stats.cpp in Sources */,
+				BEA8BD0C1AD93AFB00424CA3 /* PngImage.cpp in Sources */,
+				BEA8BD0D1AD93AFB00424CA3 /* vec3f.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +415,11 @@
 		BE2F9ABE1AD936CB0064295A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -426,6 +427,11 @@
 		BE2F9ABF1AD936CB0064295A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

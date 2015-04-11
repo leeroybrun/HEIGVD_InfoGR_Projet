@@ -43,6 +43,11 @@ float Camera::getZ()
     return pos.getZ();
 }
 
+Vec3f Camera::getPosition()
+{
+    return pos;
+}
+
 Vec3f Camera::getDirection()
 {
     return direction;
@@ -97,13 +102,13 @@ void Camera::doMovement()
     // La touche clavier LEFT est enfoncée, on va faire un déplacement latéral à gauche
     if(Game::keyboard->getKeyState(GLUT_KEY_LEFT))
     {
-        pos -= (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux
+        pos -= (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux qui pointe donc vers la droite de la camera
     }
     
     // La touche clavier RIGHT est enfoncée, on va faire un déplacement latéral à droite
     if(Game::keyboard->getKeyState(GLUT_KEY_RIGHT))
     {
-        pos += (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux
+        pos += (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux qui pointe donc vers la droite de la camera
     }
     
     // Si on est en train de sauter, on va devoir faire bouger la position de la camera sur l'axe Y
@@ -166,7 +171,7 @@ void Camera::mouseMotion(float x, float y)
     // Stocke les nouvelles valeurs pour le prochain mouvement
     lastMouseX = x;
     lastMouseY = y;
-    
+        
     // La sensibilité permet de rendre plus agréable les mouvements
     // Sans cela, les mouvements seraient trop "brusques" et difficile à controller
     GLfloat sensitivity = 0.25f;

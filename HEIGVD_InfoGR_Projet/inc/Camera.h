@@ -55,6 +55,7 @@ public:
     float getZ();
     void setY(float _y);
     
+    Vec3f getPosition();
     Vec3f getDirection();
     
     bool isOnFloor();

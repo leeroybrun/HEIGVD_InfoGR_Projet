@@ -12,9 +12,9 @@
 #include "main.h"
 #include "Game.h"
 #include "Camera.h"
-#include "Terrain.h"
 #include "Snowman.h"
 #include "World.h"
+#include "Terrain.h"
 
 #define PLAYER_INIT_THROW_SPEED 2
 

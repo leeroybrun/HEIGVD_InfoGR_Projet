@@ -82,15 +82,8 @@ void Textures::resetCurrentTexture()
 
 void Textures::loadTexture(std::string filename)
 {
-    /*glClearColor(0.0, 0.0, 0.0, 0.0);
-    glShadeModel(GL_FLAT);
-    glEnable(GL_DEPTH_TEST);*/
-    
-    //glEnable(GL_TEXTURE_2D);
-    
     unsigned width, height;
     std::vector<unsigned char>image;
-    //GLuint texture[1];
     
     unsigned error = lodepng::decode(image, width, height, filename);
     
@@ -98,15 +91,12 @@ void Textures::loadTexture(std::string filename)
         printf("PNG decoding error : %u : %s", error, lodepng_error_text(error));
     }
     
-    //glBindTexture(GL_TEXTURE_2D, texture[0]);
-    
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    
-    //glTexEnvf ( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+    //glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
     
     gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA,
                       width, height,

@@ -8,7 +8,7 @@
 
 #include "Snowman.h"
 
-Snowman::Snowman(Vec3f pos, float scale, bool applyGravity) : GameObject(Center, pos, Size3f(0.5*scale, 0.75*scale, 0.5*scale), scale, applyGravity)
+Snowman::Snowman(Vec3f pos, float scale, bool applyGravity) : GameObject(Center, pos, Size3f(1*scale, 1.5*scale, 1*scale), scale, applyGravity)
 {
     
 }
@@ -21,7 +21,7 @@ void Snowman::draw() {
     Game::textures->drawTexture("snow");
     
     // Draw Body
-    glTranslatef(0.0f ,0.5f, 0.0f);
+    glTranslatef(0.0f ,-0.25f, 0.0f);
     glutSolidSphere(0.5f,20,20);
     
     // Draw Head

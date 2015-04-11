@@ -12,21 +12,52 @@
 #include "main.h"
 #include <vector>
 
-struct MenuEntry
+enum TypeMenuEntry {
+    Simple,
+    Toggle,
+    Submenu
+};
+
+class Menu;
+
+class MenuEntry
 {
-    MenuEntry(char* _text, bool _selected): text(_text), selected(_selected){};
+public:
+    MenuEntry(int _pos, char* _text, Menu *_submenu): pos(_pos), text(_text), submenu(_submenu), type(Submenu){}
+    MenuEntry(int _pos, char* _text, TypeMenuEntry _type, int _value, bool _selected): pos(_pos), text(_text), type(_type), value(_value), selected(_selected){};
+    void toggleSelected();
+    TypeMenuEntry getType();
+    char* getText();
+    int getValue();
+    int getPos();
+    Menu* getMenu();
+    bool isSelected();
+    
+private:
+    TypeMenuEntry type;
     char* text;
     bool selected = false;
+    int pos;
+    int value;
+    Menu *submenu;
 };
 
 class Menu
 {
 private:
-    std::vector <MenuEntry> entries;
+    int menuId = 0;
+    std::vector <MenuEntry*> entries;
+    void (*changeFunc)(int); // (int value)
 public:
-    int create();
-    void addEntry(char* text, bool selected);
-    void addSubMenu(Menu *submenu);
+    Menu(void (*_changeFunc)(int)) : changeFunc(_changeFunc){};
+    void create();
+    void update();
+    void addEntry(char* text, TypeMenuEntry type, int value, bool selected);
+    MenuEntry* getEntryFromValue(int value);
+    void toggleEntryFromValue(int value);
+    void addSubMenu(char* text, Menu *submenu);
+    void attach(int key);
+    int getId();
 };
 
 void createMenus(void);

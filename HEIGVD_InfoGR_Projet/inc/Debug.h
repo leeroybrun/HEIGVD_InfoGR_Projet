@@ -10,6 +10,10 @@
 #define __HEIGVD_InfoGR_Projet__Debug__
 
 #include "main.h"
+#include "Game.h"
+#include "Camera.h"
+#include "ScreenInfos.h"
+#include "Terrain.h"
 
 class Debug
 {
@@ -23,7 +27,9 @@ public:
     bool isDebug();
     void setIsDebug(bool isDebug);
     
-    void showAxes(float baseX, float baseY, float baseZ);
+    void showAxes();
+    
+    void showDebugInfos();
 };
 
 #endif /* defined(__HEIGVD_InfoGR_Projet__Debug__) */
