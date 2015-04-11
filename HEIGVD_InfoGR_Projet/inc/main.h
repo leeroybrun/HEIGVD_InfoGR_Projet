@@ -17,17 +17,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#define WIN_W   800
-#define WIN_H   600
-
-#include "Material.h"
-#include "Terrain.h"
-#include "Camera.h"
-#include "Menu.h"
-#include "Keyboard.h"
-#include "ScreenInfos.h"
-#include "Debug.h"
-#include "Textures.h"
+#include <string>
 
 #endif

@@ -8,6 +8,24 @@
 
 #include "menu.h"
 
+int Menu::create()
+{
+    void (*func)(int value) {
+        
+    };
+    
+    return glutCreateMenu(func);
+}
+
+void Menu::addEntry(char* text, bool selected)
+{
+    
+}
+void Menu::addSubMenu(Menu *submenu)
+{
+    
+}
+
 int menIdPolyMode;
 
 // Gestion des menus

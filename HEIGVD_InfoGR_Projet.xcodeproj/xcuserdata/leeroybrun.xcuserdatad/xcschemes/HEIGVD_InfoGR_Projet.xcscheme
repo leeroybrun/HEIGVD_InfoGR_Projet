@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0630"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BE0CD1D61A93C25600EF2067"
+               BlueprintIdentifier = "BE2F9AB51AD936CB0064295A"
                BuildableName = "HEIGVD_InfoGR_Projet"
                BlueprintName = "HEIGVD_InfoGR_Projet"
                ReferencedContainer = "container:HEIGVD_InfoGR_Projet.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE0CD1D61A93C25600EF2067"
+            BlueprintIdentifier = "BE2F9AB51AD936CB0064295A"
             BuildableName = "HEIGVD_InfoGR_Projet"
             BlueprintName = "HEIGVD_InfoGR_Projet"
             ReferencedContainer = "container:HEIGVD_InfoGR_Projet.xcodeproj">
@@ -52,7 +52,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE0CD1D61A93C25600EF2067"
+            BlueprintIdentifier = "BE2F9AB51AD936CB0064295A"
             BuildableName = "HEIGVD_InfoGR_Projet"
             BlueprintName = "HEIGVD_InfoGR_Projet"
             ReferencedContainer = "container:HEIGVD_InfoGR_Projet.xcodeproj">
@@ -71,7 +71,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE0CD1D61A93C25600EF2067"
+            BlueprintIdentifier = "BE2F9AB51AD936CB0064295A"
             BuildableName = "HEIGVD_InfoGR_Projet"
             BlueprintName = "HEIGVD_InfoGR_Projet"
             ReferencedContainer = "container:HEIGVD_InfoGR_Projet.xcodeproj">

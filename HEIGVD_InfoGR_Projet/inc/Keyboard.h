@@ -9,12 +9,17 @@
 #ifndef __HEIGVD_InfoGR_Projet__keyboard__
 #define __HEIGVD_InfoGR_Projet__keyboard__
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <GLUT/GLUT.h>
+#include "main.h"
 
-void processNormalKeys(unsigned char key, int x, int y);
-void processSpecialKeys(int key, int x, int y);
+class Keyboard
+{
+private:
+    bool keys[1024] = { false };
+public:
+    Keyboard();
+    void pressKey(int key, int xx, int yy);
+    void releaseKey(int key, int x, int y);
+    bool getKeyState(int key);
+};
 
 #endif /* defined(__HEIGVD_InfoGR_Projet__keyboard__) */

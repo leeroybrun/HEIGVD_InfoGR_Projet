@@ -10,7 +10,6 @@
 #define __HEIGVD_InfoGR_Projet__Debug__
 
 #include "main.h"
-#include <string.h>
 
 class Debug
 {

@@ -10,31 +10,22 @@
 #define __HEIGVD_InfoGR_Projet__Camera__
 
 #include "main.h"
+#include "vec3f.h"
 #include <math.h>
+#include "Game.h"
 
-/*
- 
- // angle of rotation for the camera direction
- float camAngle=0.0;
- // actual vector representing the camera's direction
- float camLx=0.0f, camLz=-1.0f;
- // XZ position of the camera
- float camX=0.0f,camZ=5.0f;
- 
- float deltaAngle = 0.0f;
- float deltaMove = 0;
- 
- */
+#define CAMERA_MOVE_SPEED	0.08f //0.02
+#define CAMERA_ROTATE_SPEED	0.1f // 0.05
 
 class Camera {
 private:
-    float angle=0.0;
-    float lx=0.0f, lz=-1.0f;
-    float x=0.0f, y=0.0f, z=5.0f;
-    float deltaAngle = 0.0f;
-    float deltaMove = 0;
+    Vec3f pos = Vec3f(0, 0, 5);
+    Vec3f target = Vec3f(0, 0, 1);
+    Vec3f up = Vec3f(0, 1, 0);
+    float currMoveSpeed = 0;
+    float currRotateSpeed = 0;
 public:
-    Camera(float _x = 0, float _y = 0, float _z = 0, float _angle = 0);
+    Camera(Vec3f pos);
     
     ~Camera();
 
@@ -42,7 +33,9 @@ public:
 
     void lookAt();
     
-    float getAngle();
+    void setMoveSpeed(float _moveSpeed);
+    void setRotateSpeed(float _rotateSpeed);
+    
     float getX();
     float getY();
     float getZ();
@@ -50,6 +43,10 @@ public:
     
     void computePos();
     
+    void move(float speed);
+    void rotate(float speed);
+    
+    void mouseMotion(float x, float y);
     void pressKey(int key, int xx, int yy);
     void releaseKey(int key, int x, int y);
 };

@@ -11,7 +11,6 @@
 
 #include "main.h"
 #include <map>
-#include <string.h>
 
 class ScreenInfos
 {
