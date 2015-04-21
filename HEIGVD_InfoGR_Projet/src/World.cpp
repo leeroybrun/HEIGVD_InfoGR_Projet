@@ -8,112 +8,139 @@
 
 #include "World.h"
 
+// ------------------------------------------------------------------
+//  Classe World
+//
+//  Cette classe contient la gestion du monde.
+//
+//  Elle permet de gérer les objets qui apparaissent dans le monde,
+//  le skydome, l'eau et de détecter la collision entre un GameObject
+//  donné et un des objets du monde.
+// ------------------------------------------------------------------
+
+// Initialise le monde
 void World::init() {
     skydome = new Skydome();
     skydome->init();
+    
+    srand(time(0));
 }
 
+// Dessine l'eau
 void World::drawWater()
 {
+    int nbTexRepeat = 8;
     glPushMatrix();
     Game::textures->drawTexture("water");
     glBegin(GL_QUADS);
-    glTexCoord2f(1, 0);
+    glTexCoord2f(nbTexRepeat, 0);
     glVertex3f(1000.0f, 2.0f, -1000.0f);   // Bottom Right
     glTexCoord2f(0, 0);
     glVertex3f(-1000.0f, 2.0f, -1000.0f);  // Bottom Left
-    glTexCoord2f(0, 1);
+    glTexCoord2f(0, nbTexRepeat);
     glVertex3f(-1000.0f, 2.0f, 1000.0f);   // Top Left
-    glTexCoord2f(1, 1);
+    glTexCoord2f(nbTexRepeat, nbTexRepeat);
     glVertex3f(1000.0f, 2.0f, 1000.0f);    // Top Right
     glEnd();
     glPopMatrix();
 }
 
+// Dessine le skydome
 void World::drawSkydome()
 {
     skydome->draw();
 }
 
-void World::drawSnowMan()
-{
-    glPushMatrix();
-
-    Game::textures->drawTexture("snow");
-    
-    // Draw Body
-    glTranslatef(0.0f ,0.5f, 0.0f);
-    glutSolidSphere(0.5f,20,20);
-    
-    // Draw Head
-    glTranslatef(0.0f, 0.75f, 0.0f);
-    glutSolidSphere(0.25f,20,20);
-    
-    // Draw Eyes
-    glPushMatrix();
-    glTranslatef(0.05f, 0.10f, 0.18f);
-    glutSolidSphere(0.05f,10,10);
-    glTranslatef(-0.1f, 0.0f, 0.0f);
-    glutSolidSphere(0.05f,10,10);
-    glPopMatrix();
-    
-    // Draw Nose
-    glutSolidCone(0.08f,0.5f,10,2);
-    glPopMatrix();
-}
-
+// Affiche aléatoirement des objets dans le monde
 void World::drawRandomObjects()
 {
-    if(snowmansPos == NULL) {
-        snowmansPos = new Vec3f*[NB_SNOWMANS];
-        
+    // Si la display list n'a pas encore été créée, on la crée
+    if(objListId == 0)
+    {
         int max = 200;
         int min = -200;
         
+        // On crée aléatoirement des bonhommes de neige
         for(int i = 0; i < NB_SNOWMANS; i++) {
             float randX = rand()%(max-min + 1) + min;
             float randZ = rand()%(max-min + 1) + min;
-            float randY = Game::terrain->getRealHeight(randX, randZ);
-            if(randY > 10) { randY -= 5; }
-            if(randY > 25) { randY -= 15; }
+            float randY = Game::terrain->getHeightAtRealPos(randX, randZ);
             
-            printf("Snowman(%f; %f; %f)\n", randX, randY, randZ);
-            
-            snowmansPos[i] = new Vec3f(randX, randY, randZ);
-            
-            snowmans[i] = new Snowman(Vec3f(randX, randY, randZ), 7, true);
+            snowmans[i] = new Snowman(Vec3f(randX, randY, randZ), 7, 0);
             
             addCollisionObject(snowmans[i]);
+            
+            snowmans[i]->draw();
         }
+        
+        // On crée aléatoirement des vaches
+        for(int i = 0; i < NB_COWS; i++) {
+            float randX = rand()%(max-min + 1) + min;
+            float randZ = rand()%(max-min + 1) + min;
+            float randY = Game::terrain->getHeightAtRealPos(randX, randZ);
+            
+            cows[i] = new Cow(Vec3f(randX, randY, randZ), 7, 0);
+            
+            addCollisionObject(cows[i]);
+            
+            cows[i]->draw();
+        }
+        
+        // On crée aléatoirement des cerfs
+        for(int i = 0; i < NB_DEERS; i++) {
+            float randX = rand()%(max-min + 1) + min;
+            float randZ = rand()%(max-min + 1) + min;
+            float randY = Game::terrain->getHeightAtRealPos(randX, randZ);
+            
+            deers[i] = new Deer(Vec3f(randX, randY, randZ), 7, 0);
+            
+            addCollisionObject(deers[i]);
+            
+            deers[i]->draw();
+        }
+        
+        // Création d'une display list pour l'affichage de ces éléments sur la map
+        objListId = glGenLists(1);
+        glNewList(objListId, GL_COMPILE);
+        
+        // On dessine les bonhommes de neige
+        for(int i = 0; i < NB_SNOWMANS; i++) {
+            snowmans[i]->draw();
+        }
+        
+        // On dessine les vaches
+        for(int i = 0; i < NB_COWS; i++) {
+            cows[i]->draw();
+        }
+        
+        // On dessine les cerfs
+        for(int i = 0; i < NB_DEERS; i++) {
+            deers[i]->draw();
+        }
+        
+        glEndList();
     }
     
-    for(int i = 0; i < NB_SNOWMANS; i++) {
-        snowmans[i]->draw();
-        snowmans[i]->drawCollisionBox();
-        /*glPushMatrix();
-        glTranslatef(snowmansPos[i]->getX(), snowmansPos[i]->getY(), snowmansPos[i]->getZ());
-        glScaled(7, 7, 7);
-        drawSnowMan();
-        glPopMatrix();*/
-    }
+    // Affichage de la display list
+    glCallList(objListId);
 }
 
+// On dessine le brouillard
 void World::drawFog() {
-    GLfloat density = 0.35;
-    GLfloat fogColor[4] = {0.5, 0.5, 0.3, 1.0};
-    
-    glEnable (GL_FOG);
-    glFogi (GL_FOG_MODE, GL_EXP);
-    glFogfv (GL_FOG_COLOR, fogColor);
-    glFogf (GL_FOG_DENSITY, density);
-    glHint (GL_FOG_HINT, GL_NICEST);
+    GLfloat fogColor[] = {0.7f, 0.7f, 0.7f, 1};
+    glFogfv(GL_FOG_COLOR, fogColor);
+    glFogi(GL_FOG_MODE, GL_LINEAR);
+    glFogf(GL_FOG_START, 250.0f);
+    glFogf(GL_FOG_END, 1000.0f);
 }
 
+// Ajout d'un objet avec lequel il faut gérer les collisions à la liste
 void World::addCollisionObject(GameObject *object)
 {
     collObjects.push_back(object);
 }
 
+// Détection de collision entre un des objets du monde et un objet passé en paramètre
 bool World::detectCollisions(GameObject *object)
 {
     bool collision = false;
@@ -124,4 +151,10 @@ bool World::detectCollisions(GameObject *object)
     }
     
     return collision;
+}
+
+// Retourne la liste des objets de collision
+std::vector<GameObject*> World::getCollObjects()
+{
+    return collObjects;
 }

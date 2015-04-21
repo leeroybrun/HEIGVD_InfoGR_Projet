@@ -14,9 +14,17 @@
 class Stats
 {
 private:
-    int frameCount, currentTime, previousTime, fps, deltaTime;
+    int frameCount, currentTime, previousTime, fps, deltaTime, nbDays;
+    int dayPeriod; // 0 = jour, 1 = coucher soleil, 2 = nuit, 3 = levé de soleil
 public:
+    void setDayPeriod(int _dayPeriod){ dayPeriod = _dayPeriod; };
+    int getDayPeriod(){ return dayPeriod; };
+    
+    void setNbDays(int _nbDays){ nbDays = _nbDays; };
+    int getNbDays(){ return nbDays; };
+    
     int getFPS(){ return fps; };
+    int getCurrentTime(){ return currentTime; };
     int getDeltaTime(){ return deltaTime; };
     void computeStats();
 };

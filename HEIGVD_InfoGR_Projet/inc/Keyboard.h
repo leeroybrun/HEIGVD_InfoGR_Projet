@@ -15,11 +15,19 @@ class Keyboard
 {
 private:
     bool keys[1024] = { false };
+    bool speKeys[1024] = { false };
 public:
     Keyboard();
+    
+    // Touches "normales" du clavier
     void pressKey(int key, int xx, int yy);
     void releaseKey(int key, int x, int y);
     bool getKeyState(int key);
+    
+    // Touches "spéciales" du clavier
+    void pressSpeKey(int key, int xx, int yy);
+    void releaseSpeKey(int key, int x, int y);
+    bool getSpeKeyState(int key);
 };
 
 #endif /* defined(__HEIGVD_InfoGR_Projet__keyboard__) */

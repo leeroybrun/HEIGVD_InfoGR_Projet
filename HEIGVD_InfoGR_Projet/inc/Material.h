@@ -10,30 +10,23 @@
 #define __HEIGVD_InfoGR_Projet__Material__
 
 #include "main.h"
-
-struct color4 {
-    color4(GLfloat _r = 0, GLfloat _g = 0, GLfloat _b = 0, GLfloat _a = 1): r(_r), g(_g), b(_b), a(_a){};
-    GLfloat r;
-    GLfloat g;
-    GLfloat b;
-    GLfloat a;
-};
+#include "color4f.h"
 
 class Material
 {
 private:
-    color4 ambient;
-    color4 diffuse;
-    color4 specular;
-    color4 emission;
+    color4f ambient;
+    color4f diffuse;
+    color4f specular;
+    color4f emission;
     float  shininess;
     
 public:
     Material();
-    Material(color4 _ambient,
-             color4 _diffuse,
-             color4 _specular,
-             color4 _emission,
+    Material(color4f _ambient,
+             color4f _diffuse,
+             color4f _specular,
+             color4f _emission,
              float _shininess );
     
     void apply();

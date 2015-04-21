@@ -8,11 +8,21 @@
 
 #include "Snowman.h"
 
-Snowman::Snowman(Vec3f pos, float scale, bool applyGravity) : GameObject(Center, pos, Size3f(1*scale, 1.5*scale, 1*scale), scale, applyGravity)
+// ------------------------------------------------------------------
+//  Classe Snowman
+//
+//  Cette classe contient la gestion d'un bonhome de neige.
+//
+//  Elle dérive de GameObject pour la gestion du mouvement et des
+//  collisions, et ne contient qu'une seule méthode spéficique
+//  draw() pour l'affichage de l'objet.
+// ------------------------------------------------------------------
+
+Snowman::Snowman(Vec3f pos, float scale, float gravity) : GameObject(Center, pos, Size3f(1, 1.5, 1), scale, gravity)
 {
     
 }
-
+// Dessine un bonhomme de neige
 void Snowman::draw() {
     glPushMatrix();
     glTranslatef(centerPos.getX(), centerPos.getY(), centerPos.getZ());

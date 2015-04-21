@@ -1,13 +1,28 @@
 //
-//  Cow.h
+//  Snowman.h
 //  HEIGVD_InfoGR_Projet
 //
-//  Created by Leeroy Brun on 16.04.15.
+//  Created by Leeroy Brun on 10.04.15.
 //  Copyright (c) 2015 Leeroy Brun. All rights reserved.
 //
 
-#ifndef HEIGVD_InfoGR_Projet_Cow_h
-#define HEIGVD_InfoGR_Projet_Cow_h
+#ifndef __HEIGVD_InfoGR_Projet__Cow__
+#define __HEIGVD_InfoGR_Projet__Cow__
 
+#include "main.h"
+#include "vec3f.h"
+#include "glm.h"
+#include "Game.h"
+#include "Textures.h"
+#include "GameObject.h"
 
-#endif
+class Cow : public GameObject
+{
+public:
+    Cow(Vec3f pos, float scale, float gravity);
+    void draw();
+private:
+    GLMmodel *model = NULL;
+};
+
+#endif /* defined(__HEIGVD_InfoGR_Projet__Cow__) */

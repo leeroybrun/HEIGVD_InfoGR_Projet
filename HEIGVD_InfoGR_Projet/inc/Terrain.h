@@ -21,13 +21,16 @@ private:
     int l; //Length
     float scale;
     float scaleFactor;
+    float maxHeight;
     float** hs; //Heights
     Vec3f** normals;
     bool computedNormals; //Whether normals is up-to-date
 public:
-    Terrain(int w2, int l2);
+    Terrain(int w2, int l2, float _maxHeight);
     
     ~Terrain();
+    
+    void init();
     
     int width();
     
@@ -43,7 +46,7 @@ public:
     
     //Returns the height at (x, z)
     float getHeight(int x, int z);
-    float getRealHeight(int x, int z);
+    float getHeightAtRealPos(int x, int z);
     
     //Computes the normals, if they haven't been computed yet
     void computeNormals();
@@ -53,6 +56,12 @@ public:
     
     //Returns the normal at (x, z)
     Vec3f getNormal(int x, int z);
+    
+    // Charge une heightmap
+    void loadHeightmap(PngImage* image);
+    
+    // Recharge une nouvelle heightmap
+    void reloadHeightmap(char* filename);
 };
 
 Terrain* loadTerrain(const char* filename, float maxHeight);

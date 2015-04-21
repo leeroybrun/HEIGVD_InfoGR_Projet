@@ -8,14 +8,40 @@
 
 #include "GameObject.h"
 
-GameObject::GameObject(TypeGameObjectPos typePos, Vec3f pos, Size3f size, float scale, bool applyGravity)
+// ------------------------------------------------------------------
+//  Classe GameObject
+//
+//  Cette classe contient la gestion des objets du jeu.
+//
+//  Elle permet de gérer les informations de base d'un objet
+//  (taille, position, scale, gravité) ainsi que le mouvement d'un
+//  objet dans l'espace en fonction d'un vecteur de vélocité.
+//
+//  Elle permet également de détecter les collisions entre différents
+//  objets en fonction de la position et de la taille des objets.
+//
+//  Cette classe doit être dérivée afin de spécialiser la méthode
+//  draw() des différents objets. Voir le dossier "GameObjects"
+//  pour des exemples.
+// ------------------------------------------------------------------
+
+// Initlaise un objet du jeu
+GameObject::GameObject(TypeGameObjectPos typePos, Vec3f pos, Size3f size, float scale, float gravity)
 {
-    setPos(typePos, pos);
+    // Défini la taille et le scale
     this->scale = scale;
-    this->size = size;
-    this->applyGravity = applyGravity;
+    this->size.x = size.x * scale;
+    this->size.y = size.y * scale;
+    this->size.z = size.z * scale;
+    
+    // Défini sa position
+    setPos(typePos, pos);
+    
+    // Défini la gravité de l'objet
+    this->gravity = gravity;
 }
 
+// Retourne la position en fonction du type de position
 Vec3f GameObject::getPos(TypeGameObjectPos typePos)
 {
     if(typePos == TopLeft) {
@@ -27,39 +53,60 @@ Vec3f GameObject::getPos(TypeGameObjectPos typePos)
     }
 }
 
+// Défini la position en fonction du type de position
 void GameObject::setPos(TypeGameObjectPos typePos, Vec3f pos)
 {
     if(typePos == TopLeft) {
         topLeftPos = pos;
-        centerPos = { pos.getX()+size.x, pos.getY()+size.y, pos.getZ()+size.z };
+        centerPos = Vec3f(pos.getX()+size.x, pos.getY()+size.y, pos.getZ()+size.z);
     } else if(typePos == Center) {
         centerPos = pos;
-        topLeftPos = { pos.getX()-size.x, pos.getY()-size.y, pos.getZ()-size.z };
+        topLeftPos = Vec3f(pos.getX()-(size.x/2), pos.getY()-(size.y/2), pos.getZ()-(size.z/2));
     }
 }
 
+// Retourne la taille de l'objet
+Size3f GameObject::getSize()
+{
+    return size;
+}
+
+// Retourne la gravité de l'objet
+float GameObject::getGravity()
+{
+    return gravity;
+}
+
+// Défini la gravité de l'objet
+void GameObject::setGravity(float _gravity)
+{
+    gravity = _gravity;
+}
+
+// Retourne la vélocité de l'objet
 Vec3f GameObject::getVelocity()
 {
     return velocity;
 }
 
+// Défini la vélocité de l'objet
 void GameObject::setVelocity(Vec3f _velocity)
 {
     velocity = _velocity;
 }
 
+// Déplace l'objet à la vitesse passée en paramètre
 void GameObject::move(float speed)
 {
-    if(applyGravity) {
-        velocity[1] -= GRAVITY*0.01;
+    if(gravity != 0) {
+        velocity[1] -= gravity*0.01;
     }
     
     topLeftPos += speed * velocity;
     centerPos += speed * velocity;
-    /*topLeftPos += velocity * speed;
-    centerPos += velocity * speed;*/
 }
 
+// Détecte la collision avec un autre objet passé en paramètre
 bool GameObject::detectCollision(GameObject &obj2)
 {
     // Collision sur l'axe X ?
@@ -74,23 +121,57 @@ bool GameObject::detectCollision(GameObject &obj2)
     bool collisionZ = topLeftPos.getZ() + size.z >= obj2.topLeftPos.getZ() &&
     obj2.topLeftPos.getZ() + obj2.size.z >= topLeftPos.getZ();
     
-    // Collision only if on both axes
+    // Collision seulement si elle survient sur les 3 axes en même temps
     return collisionX && collisionY && collisionZ;
 }
 
+// Dessine la "boite" de détection des collisions pour l'objet
 void GameObject::drawCollisionBox()
 {
     glPushMatrix();
     glTranslatef(topLeftPos.getX(), topLeftPos.getY(), topLeftPos.getZ());
-    //glScaled(scale, scale, scale);
     
-    // Face en face de nous
-    glBegin(GL_POLYGON);
+    Game::materials->applyMaterial("whiteTransp");
+    
+    // Face de gauche
+    glBegin(GL_QUADS);
+    glVertex3f(0, 0, size.z);
+    glVertex3f(0, size.y, size.z);
+    glVertex3f(0, size.y, 0);
     glVertex3f(0, 0, 0);
-    glVertex3f(0, -size.y, 0);
-    glVertex3f(size.x, -size.y, 0);
-    glVertex3f(size.x, size.y, 0);
     glEnd();
+    
+    glTranslatef(0, 0, size.z);
+    
+    // Face de devant
+    glBegin(GL_QUADS);
+    glVertex3f(size.x, 0, 0);
+    glVertex3f(size.x, size.y, 0);
+    glVertex3f(0, size.y, 0);
+    glVertex3f(0, 0, 0);
+    glEnd();
+    
+    glTranslatef(size.x, 0, 0);
+    
+    // Face de droite
+    glBegin(GL_QUADS);
+    glVertex3f(0, 0, -size.z);
+    glVertex3f(0, size.y, -size.z);
+    glVertex3f(0, size.y, 0);
+    glVertex3f(0, 0, 0);
+    glEnd();
+    
+    glTranslatef(0, 0, -size.z);
+    
+    // Face de derrière
+    glBegin(GL_QUADS);
+    glVertex3f(-size.x, 0, 0);
+    glVertex3f(-size.x, size.y, 0);
+    glVertex3f(0, size.y, 0);
+    glVertex3f(0, 0, 0);
+    glEnd();
+    
+    Game::materials->restorePrevMaterial();
     
     glPopMatrix();
 }

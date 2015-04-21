@@ -1,48 +1,66 @@
 ## OpenGL/GLUT Game
 
-### TODO
-- Menu
-- Brouillard
-- Class light
-- Class materials (comme textures)
-- Ajouter lumières
-- Ajouter mode jour/nuit
-- Ajouter textures terrain
+Créé par Leeroy BRUN pour le projet du cours Infographie de la HEIG-VD, Yverdon-les-bains, Suisse.
+
+ATTENTION! Avant de compiler le projet, il faut changer le chemin absolu (ROOT_PATH) qui se trouve dans le fichier "inc/Game.h" ! Sinon la heightmap et les textures ne chargeront pas.
+
+### Fonctionnalités
+
+- Chargement facile d'un terrain sous forme de heightmap
+- Gestion des collisions entre les objets du monde
+- Chargement d'objets au format OBJ
+- Apparition aléatoire d'objets sur la map
+- Gestion d'un 
+cycle jour/coucher de soleil/nuit/levé de soleil/jour
+- Le joueur peut sauter et lancer des objets, il gagne des points lorsqu'il touche d'autres objets de la map
+- Gestion facilitée des textures, matériaux et lumières avec des classes dediées
+
+### Contrôles
+
+- Touches UP/DOWN/LEFT/RIGHT du clavier ou touches WASD : avancer, reculer, déplacement latéral
+- Déplacement de la souris : regarder autour de soi
+- Clic gauche de la souris : lancer un objet
+- Clic droit de la souris : afficher le menu
+- Touche ENTER : lancer un objet
+
+### Structure des dossiers
+
+#### Dossier "types/"
+
+Contient différents types utiles (size3f, color4f).
+
+#### Dossier "data/"
+
+Contient des fichiers de données tels que textures, heightmaps, modèles OBJ, etc.
+
+#### Dossier "lib/"
+
+Contient des librairies externes telles que Vec3f, LodePNG ou GLM.
+
+#### Dossier "inc/"
+
+Contient les fichiers .h du programme
+
+#### Dossier "src/"
+
+Contient les fichiers source du programme.
+
+Dans chaque fichier source se trouve toute la documentation des différentes classes.
+
+### Points qui pourraient être améliorés
+- Changer la texture du skydome en fonction de si on est le jour/nuit/coucher de soleil
+- Ajouter objets aléatoirement
+    - Arbres
+    - « Ennemis » qui bougent (AI)
+- Lors du rechargement du terrain -> recalculer position objets
+- Skybox à la place de Skydome
+- Plusieurs textures sur le terrain (en fonction de la hauteur et l'inclinaison' par exemple)
     - Eau
     - Sable
     - Herbe
     - Cailloux
     - Neige
-- Ajouter objets aléatoirement
-    - Arbres
-    - « Ennemis »
-- Pouvoir lancer des objets et toucher d’autres objets (arbres, ennemis, etc)
-    - Points à chaque objet touché
-- Pouvoir charger plusieurs terrains
-    - Cervin
-    - Moléson
-    - Pléiades
-    - Dents du midi
-- Collisions : http://www.swiftless.com/tutorials/opengl/collision.html
-- Skybox à la place de Skydome ?
-    - https://sidvind.com/wiki/Skybox_tutorial
-    - http://raptor.developpez.com/tutorial/opengl/skybox/
-
-### Done
-
-- Camera doit rester au-dessus du terrain (bug)
-- Bouger la camera avec la souris (FPS)
-- Pouvoir sauter
-
-### Améliorations possibles
-- Plusieurs textures sur le terrain (fonction de la hauteur, etc) (http://3dgep.com/multi-textured-terrain-in-opengl/)
-- Utiliser VBO pour accélérer rendu terrain : http://www.swiftless.com/tutorials/opengl/6_vbo.html
-- Display Lists : http://www.swiftless.com/tutorials/opengl/displaylists.html
-- Ajouter « téléphérique » ou quelque chose comme ça
-    - Sur l’axe X ou Z
-    - Du point le plus bas, au point le plus haut sur cet axe
-    - Pouvoir prendre le téléphérique pour monter en haut
-    - Cabines ne font que monter, pas descendre (plus simple)
+- Utiliser VBO (Vertex Buffer Object) pour accélérer le rendu du terrain
 
 ### Cahier des charges
 

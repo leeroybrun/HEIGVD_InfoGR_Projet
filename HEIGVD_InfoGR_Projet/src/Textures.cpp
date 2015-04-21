@@ -9,6 +9,20 @@
 #include "Textures.h"
 #include "lodepng.h"
 
+// ------------------------------------------------------------------
+//  Classe Textures
+//
+//  Cette classe contient la gestion des textures du jeu.
+//
+//  Elle permet de charger plusieurs textures et de leur donner un
+//  nom. On peut ensuite facilement appliquer une texture d'après
+//  son nom.
+//
+//  Elle permet également de facilement activer/désactiver les
+//  textures et de reseter la texture en cours.
+// ------------------------------------------------------------------
+
+// Initialise une texture
 Texture::Texture(std::string _filename, GLuint _texId, std::string _name)
 {
     filename = _filename;
@@ -16,6 +30,7 @@ Texture::Texture(std::string _filename, GLuint _texId, std::string _name)
     name = _name;
 }
 
+// Initialise la gestion des textures
 void Textures::init()
 {
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -23,17 +38,20 @@ void Textures::init()
     //glShadeModel(GL_FLAT);
 }
 
+// Active les textures
 void Textures::enable()
 {
     glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
+// Désactive les textures
 void Textures::disable()
 {
     glDisable(GL_TEXTURE_2D);
 }
 
+// Charge une liste de textures
 void Textures::loadTextures(texturesMapLoad filenames)
 {
     // On genère des identifiants pour les textures que l'on va charger
@@ -61,6 +79,7 @@ void Textures::loadTextures(texturesMapLoad filenames)
     }
 }
 
+// Applique une texture d'après son nom
 void Textures::drawTexture(std::string name)
 {
     texturesMap::const_iterator pos = textures.find(name);
@@ -73,6 +92,7 @@ void Textures::drawTexture(std::string name)
     }
 }
 
+// Reset la texture en cours
 void Textures::resetCurrentTexture()
 {
     glDisable(GL_TEXTURE);
@@ -80,6 +100,7 @@ void Textures::resetCurrentTexture()
     glEnable(GL_TEXTURE);
 }
 
+// Charge une texture depuis un fichier
 void Textures::loadTexture(std::string filename)
 {
     unsigned width, height;

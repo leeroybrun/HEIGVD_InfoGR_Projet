@@ -8,48 +8,21 @@
 
 #include "ScreenInfos.h"
 
-// http://www.lighthouse3d.com/tutorials/glut-tutorial/bitmap-fonts-and-orthogonal-projections/
+// ------------------------------------------------------------------
+//  Classe ScreenInfos
+//
+//  Cette classe contient la gestion des informations à afficher
+//  à l'écran (pour le debug).
+//
+//  Elle permet de définir des informations à afficher à l'écran
+//  et de les mettre à jour facilement. On peut ensuite les afficher
+//  facilement grâce à la méthode draw();
+// ------------------------------------------------------------------
 
-void renderBitmapString(
-                        float x,
-                        float y,
-                        void *font,
-                        std::string str) {
-    
-    glRasterPos2f(x, y);
-    for (unsigned int i = 0; i<str.length(); i++) {
-        glutBitmapCharacter(font, str[i]);
-    }
-}
+// Les méthodes setOrthographicProjection et restorePerspectiveProjection sont inspirée du tutoriel :
+//    http://www.lighthouse3d.com/tutorials/glut-tutorial/bitmap-fonts-and-orthogonal-projections/
 
-void renderBitmapString(
-                        float x,
-                        float y,
-                        void *font,
-                        char *string) {
-    
-    char *c;
-    glRasterPos2f(x, y);
-    for (c=string; *c != '\0'; c++) {
-        glutBitmapCharacter(font, *c);
-    }
-}
-
-void renderBitmapString(
-                        float x,
-                        float y,
-                        float z,
-                        void *font,
-                        char *string) {
-    
-    char *c;
-    glRasterPos3f(x, y,z);
-    for (c=string; *c != '\0'; c++) {
-        glutBitmapCharacter(font, *c);
-    }
-}
-
-void ScreenInfos::setOrthographicProjection(int w, int h) {
+void ScreenInfos::setOrthographicProjection() {
     
     // switch to projection mode
     glMatrixMode(GL_PROJECTION);
@@ -62,7 +35,7 @@ void ScreenInfos::setOrthographicProjection(int w, int h) {
     glLoadIdentity();
     
     // set a 2D orthographic projection
-    gluOrtho2D(0, w, h, 0);
+    gluOrtho2D(0, Game::window->width, Game::window->height, 0);
     
     // switch back to modelview mode
     glMatrixMode(GL_MODELVIEW);
@@ -78,36 +51,48 @@ void ScreenInfos::restorePerspectiveProjection() {
     glMatrixMode(GL_MODELVIEW);
 }
 
+// Défini une valeur en fonction de sa clé (nom)
+// Le format de la méthode est (clé, format, valeurs)
+// Exemple: ->set("nb_fps", "FPS: %d", fpsVal)
 void ScreenInfos::set(std::string key, const char *format, ...) {
     char str[100];
     std::string str2;
     
+    // On utilise vsprintf pour transformer le char* format à l'aide des arguments passés en paramètre
+    // On place ensite le char* dans un string pour plus de facilité
     va_list argptr;
     va_start(argptr, format);
     vsprintf(str, format, argptr);
     str2 = str;
     va_end(argptr);
     
+    // On essaie de l'insérer dans le map (tableau associatif)
     if(infos.insert(std::make_pair(key, str2)).second == false) {
+        // Si l'insertion a échoué, c'est que cette valeur existait déjà. On la met donc à jour
         infos[key] = str2;
     }
 }
 
-void ScreenInfos::drawScreenInfos(int w, int h) {
-    setOrthographicProjection(w, h);
+// Dessine les infos à l'écran (en haut à gauche)
+void ScreenInfos::draw() {
+    setOrthographicProjection();
     
-    int x = 5;
-    int y = 15;
+    Game::materials->applyMaterial("black"); // Du noir pour l'affichage
+    
+    int x = 5;  // Position x de départ
+    int y = 15; // Position y de départ
     
     glPushMatrix();
     glLoadIdentity();
     
+    // Boucle sur toutes les infos du map (tableau associatif)
     typedef std::map<std::string, std::string>::iterator it_type;
     for(it_type iterator = infos.begin(); iterator != infos.end(); iterator++) {
-        renderBitmapString(x, y, GLUT_BITMAP_HELVETICA_12, iterator->second);
-        y += 20;
+        GlutHelper::renderBitmapString(x, y, GLUT_BITMAP_HELVETICA_12, iterator->second);
+        y += 20; // On ajoute 20 au y pour l'affichage de la prochaine info
     }
     
+    Game::materials->restorePrevMaterial();
     
     glPopMatrix();
     

@@ -1,8 +1,21 @@
 #include "Terrain.h"
 
-Terrain::Terrain(int w2, int l2) {
+// ------------------------------------------------------------------
+//  Classe Terrain
+//
+//  Cette classe contient la gestion du terrain à l'aide de heigtmaps.
+//
+//  Il peut lancer des objets lorsque l'utilisateur appuye sur la
+//  touche ENTER ou sur le clic gauche de la souris.
+//
+//  Todo: utiliser des Vertex Buffer Objects pour accélérer
+//  l'affichage du terrain, ce qui acclérera grandement le rendu.
+// ------------------------------------------------------------------
+
+Terrain::Terrain(int w2, int l2, float _maxHeight) {
     w = w2;
     l = l2;
+    maxHeight = _maxHeight;
     
     // Initialise le tableau des hauteurs
     hs = new float*[l];
@@ -34,6 +47,11 @@ Terrain::~Terrain() {
     delete[] normals;
 }
 
+void Terrain::init()
+{
+    
+}
+
 int Terrain::width() {
     return w;
 }
@@ -57,13 +75,13 @@ float Terrain::getHeight(int x, int z) {
     return hs[z][x];
 }
 
-// Returns the real height at (x, z)
-float Terrain::getRealHeight(int x, int z) {
+// Retourne la hauteur du terrain à la position réelle (ex. position de la camera) x;z
+float Terrain::getHeightAtRealPos(int x, int z) {
     float terrainX = x * (1/Game::terrain->getScale()) + (Game::terrain->width()/2);
     float terrainZ = z * (1/Game::terrain->getScale()) + (Game::terrain->length()/2);
     float terrainY = getHeight(terrainX, terrainZ)*2+5;
-    if(terrainY < 6) {
-        terrainY = 6;
+    if(terrainY < 10) {
+        terrainY = 10;
     }
     
     return terrainY;
@@ -84,7 +102,8 @@ void Terrain::setScaleFactor(float _scaleFactor)
     scaleFactor = _scaleFactor;
 }
 
-//Computes the normals, if they haven't been computed yet
+// Calcule les normales du terrain
+// Ceci a été repris depuis videotutorialsrock.com/opengl_tutorial/terrain/home.php
 void Terrain::computeNormals() {
     if (computedNormals) {
         return;
@@ -168,7 +187,7 @@ void Terrain::computeNormals() {
     computedNormals = true;
 }
 
-//Returns the normal at (x, z)
+// Retourne les normales à la position (x;z)
 Vec3f Terrain::getNormal(int x, int z) {
     if (!computedNormals) {
         computeNormals();
@@ -176,6 +195,7 @@ Vec3f Terrain::getNormal(int x, int z) {
     return normals[z][x];
 }
 
+// Dessine le terrain
 void Terrain::draw()
 {
     glPushMatrix();
@@ -189,13 +209,7 @@ void Terrain::draw()
     for(int z = 0; z < this->length() - 1; z++) {
         //Makes OpenGL draw a triangle at every three consecutive vertices
         glBegin(GL_TRIANGLE_STRIP);
-        for(int x = 0; x < this->width(); x++) {
-            /*if(this->getHeight(x, z) > 10) {
-                Game::textures->drawTexture("snow");
-            } else {
-                Game::textures->drawTexture("grass");
-            }*/
-            
+        for(int x = 0; x < this->width(); x++) {            
             Vec3f normal = this->getNormal(x, z);
             glNormal3f(normal[0], normal[1], normal[2]);
             glTexCoord2f((float)x / this->width(), (float)z / this->length());
@@ -211,27 +225,50 @@ void Terrain::draw()
     glPopMatrix();
 }
 
-//Loads a terrain from a heightmap.  The heights of the terrain range from
-Terrain* loadTerrain(const char* filename, float maxHeight) {
-    PngImage* image = loadPngImage(filename);
-    Terrain* t = new Terrain(image->width, image->height);
-    
+// Charge une heightmap
+void Terrain::loadHeightmap(PngImage* image)
+{
     for(int z = 0; z < image->height; z++) {
         for(int x = 0; x < image->width; x++) {
             int color = image->pixels[z][x];
-            //printf("%d,", color);
             
             float h = (float)maxHeight * (((float)color / 255.0f)); // Calcule la hauteur du pixel en cours
-            //printf("%f,", h);
             
-            t->setHeight(x, z, h);
+            setHeight(x, z, h);
         }
-        //printf("\n");
     }
     
     delete image;
     
-    t->computeNormals();
+    computeNormals();
+}
+
+// Charge une nouvelle heightmap
+void Terrain::reloadHeightmap(char* filename)
+{
+    PngImage* image = loadPngImage(filename);
+    
+    for(int z = 0; z < image->height; z++) {
+        for(int x = 0; x < image->width; x++) {
+            int color = image->pixels[z][x];
+            
+            float h = (float)maxHeight * (((float)color / 255.0f)); // Calcule la hauteur du pixel en cours
+            
+            setHeight(x, z, h);
+        }
+    }
+    
+    delete image;
+    
+    computeNormals();
+}
+
+// Charge un terrain depuis le fichier fournis en paramètre
+Terrain* loadTerrain(const char* filename, float maxHeight) {
+    PngImage* image = loadPngImage(filename);
+    Terrain* t = new Terrain(image->width, image->height, maxHeight);
+    
+    t->loadHeightmap(image);
     
     return t;
 }

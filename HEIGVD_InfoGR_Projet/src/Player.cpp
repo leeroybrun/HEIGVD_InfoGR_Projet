@@ -8,11 +8,25 @@
 
 #include "Player.h"
 
+// ------------------------------------------------------------------
+//  Classe Player
+//
+//  Cette classe contient la gestion du joueur.
+//
+//  Il peut lancer des objets lorsque l'utilisateur appuye sur la
+//  touche ENTER ou sur le clic gauche de la souris.
+//
+//  Todo: déplacer toute la gestion des mouvements de l'utilisateur
+//        (clavier/souris), le fait de pouvoir sauter et de rester
+//        à la hauteur du terrain dans la classe Player
+//        (actuellement dans la classe Camera).
+// ------------------------------------------------------------------
+
 // Initialise le joueur
 void Player::init()
 {
     // On initialise le bonhome de neige que le joueur peut lancer
-    snowman = new Snowman(Vec3f(Game::camera->getX(), Game::camera->getY(), Game::camera->getZ()), 1, true);
+    snowman = new Snowman(Vec3f(Game::camera->getX(), Game::camera->getY(), Game::camera->getZ()), 1, 0.5);
 }
 
 // Gestion des objets lancés par le joueur
@@ -25,14 +39,10 @@ void Player::drawThrownObjects()
         // On le déplace à la vitesse de lancé
         snowman->move(throwSpeed);
         
-        //printf("Snowman is moving P(%f; %f; %f) at speed %f\n", snowman->getPos(Center).getX(), snowman->getPos(Center).getY(), snowman->getPos(Center).getZ(), throwSpeed);
-        
         // On calcul sa hauteur actuelle ainsi que la hauteur du terrain à sa position actuelle
-        float snowmanHeight = snowman->getPos(Center).getY()+5;
-        float terrainHeight = Game::terrain->getRealHeight(snowman->getPos(Center).getX(), snowman->getPos(Center).getZ());
-        
-        //printf("Snowman height : %f, terrain height: %f\n", snowmanHeight, terrainHeight);
-        
+        float snowmanHeight = snowman->getPos(Center).getY();
+        float terrainHeight = Game::terrain->getHeightAtRealPos(snowman->getPos(Center).getX(), snowman->getPos(Center).getZ())-10; // On enlève 10, pour ne pas être embêté par le terrain si l'objet serait un peu enfoncé
+                
         // Si le bonhomme de neige a atteint le terrain, on reset sa velocity et la vitesse de lancé
         if(snowmanHeight <= terrainHeight) {
             snowman->setVelocity(Vec3f(0, 0, 0));
@@ -46,9 +56,11 @@ void Player::drawThrownObjects()
         
         // On vérifie si il entre en collision avec un objet du monde
         if(Game::world->detectCollisions(snowman)) {
-            printf("Collision détectée !");
-        } else {
-            printf("Aucune collision...");
+            // On efface le bonhomme de neige lancé
+            snowman->setVelocity(Vec3f(0, 0, 0));
+            throwSpeed = PLAYER_INIT_THROW_SPEED;
+            
+            Game::scores->addPoints(200);
         }
     
     // Si le bonhomme de neige ne bouge pas (pas lancé)
@@ -75,10 +87,15 @@ void Player::throwSnowman()
     snowman->setVelocity(Game::camera->getDirection());
 }
 
+void Player::mouseClick(int button, int state, int x, int y)
+{
+    if(button == GLUT_LEFT_BUTTON && button == GLUT_DOWN) {
+        throwSnowman();
+    }
+}
+
 void Player::pressKey(unsigned char key, int xx, int yy) {
-    /*switch (key) {
-        case 13: throwSpeed += 0.5; break;
-    }*/
+    
 }
 
 void Player::releaseKey(unsigned char key, int xx, int yy) {

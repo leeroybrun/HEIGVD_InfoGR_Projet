@@ -12,6 +12,24 @@ float degreesToRad(float angle) {
     return angle * 3.14159265 / 180.0;
 }
 
+// ------------------------------------------------------------------
+//  Classe Camera
+//
+//  Cette classe contient la gestion de la camera.
+//
+//  Elle permet à l'utilisateur de déplacer la camera en appuyant
+//  sur les touches directionnelles du clavier et en déplacant la
+//  souris. Il peut aussi sauter en appuyant sur ESPACE.
+//
+//  La position et le target de la camera sont gérés à l'aide de
+//  vecteurs.
+//
+//  Todo: déplacer toute la gestion des mouvements de l'utilisateur
+//        (clavier/souris), le fait de pouvoir sauter et de rester
+//        à la hauteur du terrain dans la classe Player
+//        (actuellement dans la classe Camera).
+// ------------------------------------------------------------------
+
 Camera::Camera(Vec3f _pos) : pos(_pos){}
 
 Camera::~Camera(){
@@ -26,6 +44,8 @@ void Camera::init() {
     // Valeurs temporaires, elles seront remplacées au premier mouvement de souric
     lastMouseX = Game::window->width/2;
     lastMouseY = Game::window->height/2;
+    
+    glutWarpPointer(Game::window->width/2, Game::window->height/2);
 }
 
 float Camera::getX()
@@ -88,25 +108,25 @@ void Camera::doMovement()
     GLfloat jumpSpeed = CAMERA_JUMP_SPEED * deltaTime;
     
     // La touche clavier UP est enfoncée, on va faire un déplacement en avant
-    if(Game::keyboard->getKeyState(GLUT_KEY_UP))
+    if(Game::keyboard->getSpeKeyState(GLUT_KEY_UP) || Game::keyboard->getKeyState(119))
     {
         pos += cameraSpeed * direction; // On se déplace dans la direction voulue en fonction de la vitesse
     }
     
     // La touche clavier DOWN est enfoncée, on va faire un déplacement en arrière
-    if(Game::keyboard->getKeyState(GLUT_KEY_DOWN))
+    if(Game::keyboard->getSpeKeyState(GLUT_KEY_DOWN) || Game::keyboard->getKeyState(115))
     {
         pos -= cameraSpeed * direction; // On se déplace dans la direction voulue en fonction de la vitesse
     }
     
     // La touche clavier LEFT est enfoncée, on va faire un déplacement latéral à gauche
-    if(Game::keyboard->getKeyState(GLUT_KEY_LEFT))
+    if(Game::keyboard->getSpeKeyState(GLUT_KEY_LEFT) || Game::keyboard->getKeyState(97))
     {
         pos -= (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux qui pointe donc vers la droite de la camera
     }
     
     // La touche clavier RIGHT est enfoncée, on va faire un déplacement latéral à droite
-    if(Game::keyboard->getKeyState(GLUT_KEY_RIGHT))
+    if(Game::keyboard->getSpeKeyState(GLUT_KEY_RIGHT) || Game::keyboard->getKeyState(100))
     {
         pos += (direction.cross(up)).normalize() * cameraSpeed; // En appliquant un produit croisé entre le vecteur direction et le vecteur UP, on obtient un vecteur perpendiculaire aux deux qui pointe donc vers la droite de la camera
     }

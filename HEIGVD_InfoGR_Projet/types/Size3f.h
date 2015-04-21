@@ -9,5 +9,12 @@
 #ifndef HEIGVD_InfoGR_Projet_Size3f_h
 #define HEIGVD_InfoGR_Projet_Size3f_h
 
+struct Size3f {
+    Size3f(float _x, float _y, float _z): x(_z), y(_y), z(_z){};
+    
+    float x;
+    float y;
+    float z;
+};
 
 #endif

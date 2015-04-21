@@ -8,6 +8,14 @@
 
 #include "keyboard.h"
 
+// ------------------------------------------------------------------
+//  Classe Keyboard
+//
+//  Cette classe contient la gestion des touches clavier pressées.
+//
+//  Elle permet de savoir si une touche du clavier est actuellement
+//  pressée ou non.
+// ------------------------------------------------------------------
 
 Keyboard::Keyboard()
 {
@@ -25,4 +33,17 @@ void Keyboard::releaseKey(int key, int x, int y) {
 bool Keyboard::getKeyState(int key)
 {
     return keys[key];
+}
+
+void Keyboard::pressSpeKey(int key, int xx, int yy) {
+    speKeys[key] = true;
+}
+
+void Keyboard::releaseSpeKey(int key, int x, int y) {
+    speKeys[key] = false;
+}
+
+bool Keyboard::getSpeKeyState(int key)
+{
+    return speKeys[key];
 }

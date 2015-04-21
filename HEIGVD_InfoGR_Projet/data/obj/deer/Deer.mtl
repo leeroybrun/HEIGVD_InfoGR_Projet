@@ -8,7 +8,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd Deer_body_D.tga
+map_Kd Deer_body_D.ppm
 
 
 newmtl Deer_horns
@@ -19,6 +19,6 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd Deer_horns_D.tga
+map_Kd Deer_horns_D.ppm
 
 

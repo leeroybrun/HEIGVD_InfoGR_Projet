@@ -8,6 +8,13 @@
 
 #include "Skydome.h"
 
+// ------------------------------------------------------------------
+//  Classe Skydome
+//
+//  Cette classe permet s'afficher un skydome autour de la scene.
+// ------------------------------------------------------------------
+
+// Initialisation du skydome
 void Skydome::init()
 {
     sphere = gluNewQuadric();
@@ -17,18 +24,18 @@ void Skydome::init()
     gluQuadricNormals(sphere, GLU_SMOOTH);
     
     material = new Material(
-                               color4(1,1,1, 1),
-                               color4(1,1,1, 1),
-                               color4(1,1,1, 1),
-                               color4(0,0,0, 1),
+                               color4f(1,1,1, 1),
+                               color4f(1,1,1, 1),
+                               color4f(1,1,1, 1),
+                               color4f(0,0,0, 1),
                                0);
 }
 
+// Dessin du skydome
 void Skydome::draw()
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    //glLoadIdentity();
     
     material->apply();
     Game::textures->drawTexture("skydome");

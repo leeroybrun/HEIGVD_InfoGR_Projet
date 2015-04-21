@@ -10,14 +10,14 @@
 #define __HEIGVD_InfoGR_Projet__screenInfos__
 
 #include "main.h"
+#include "Game.h"
+#include "Materials.h"
+#include "GlutHelper.h"
 #include <map>
 
 class ScreenInfos
 {
 private:
-    void setOrthographicProjection(int w, int h);
-    
-    void restorePerspectiveProjection();
     
     std::map<std::string, std::string> infos;
     
@@ -25,9 +25,12 @@ public:
     ScreenInfos(){};
     ~ScreenInfos(){};
     
+    void setOrthographicProjection();
+    void restorePerspectiveProjection();
+    
     void set(std::string key, const char *format, ...) ;
     
-    void drawScreenInfos(int w, int h);
+    void draw();
 
 };
 

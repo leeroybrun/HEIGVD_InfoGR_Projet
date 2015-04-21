@@ -11,16 +11,12 @@
 
 #include "main.h"
 #include "vec3f.h"
+#include "Size3f.h"
+#include "Game.h"
+#include "Material.h"
+#include "Materials.h"
 
 #define GRAVITY 3
-
-struct Size3f {
-    Size3f(float _x, float _y, float _z): x(_z), y(_y), z(_z){};
-    
-    float x;
-    float y;
-    float z;
-};
 
 enum TypeGameObjectPos {
     TopLeft,
@@ -30,13 +26,18 @@ enum TypeGameObjectPos {
 class GameObject
 {
 public:
-    GameObject(TypeGameObjectPos typePos, Vec3f pos, Size3f size, float scale = 1, bool applyGravity = false);
+    GameObject(TypeGameObjectPos typePos, Vec3f pos, Size3f size, float scale = 1, float gravity = false);
     
     Vec3f getPos(TypeGameObjectPos typePos);
     void setPos(TypeGameObjectPos typePos, Vec3f pos);
     
     Vec3f getVelocity();
     void setVelocity(Vec3f _velocity);
+    
+    Size3f getSize();
+    
+    float getGravity();
+    void setGravity(float _gravity);
     
     void move(float speed);
     bool detectCollision(GameObject &obj2);
@@ -46,7 +47,7 @@ protected:
     Vec3f topLeftPos = {0, 0, 0};
     Vec3f centerPos = {0, 0, 0};
     Vec3f velocity = {0, 0, 0};
-    bool applyGravity = false;
+    float gravity = 2;
     float scale = 1;
 private:
     

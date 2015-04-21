@@ -18,7 +18,7 @@
 class Snowman : public GameObject
 {
 public:
-    Snowman(Vec3f pos, float scale, bool applyGravity);
+    Snowman(Vec3f pos, float scale, float gravity);
     void draw();
 private:
 };

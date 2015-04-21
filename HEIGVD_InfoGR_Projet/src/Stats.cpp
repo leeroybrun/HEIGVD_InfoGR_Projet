@@ -8,6 +8,13 @@
 
 #include "Stats.h"
 
+// ------------------------------------------------------------------
+//  Classe Stats
+//
+//  Cette classe permet de calculer différentes statistiques
+//  concernant le jeu (FPS, temps passé depuis dernier rendu, etc).
+// ------------------------------------------------------------------
+
 void Stats::computeStats()
 {
     //  Increase frame count

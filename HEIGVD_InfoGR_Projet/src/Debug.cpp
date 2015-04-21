@@ -8,28 +8,61 @@
 
 #include "Debug.h"
 
-// Utile pour dessiner les noms des axes
-void dessinChar (char *s)      // Dessine un bitmap HELVETICA_12
+// ------------------------------------------------------------------
+//  Classe Debug
+//
+//  Cette classe permet de gérer l'affichage ou non des différentes
+//  informations de debug.
+// ------------------------------------------------------------------
+
+// ------------------------------------------------------------------
+//  Affichage des boites de collision
+// ------------------------------------------------------------------
+
+bool Debug::shouldShowCollBoxes()
 {
-    unsigned int i;
-    for (i = 0; i < strlen(s); i++)
-        glutBitmapCharacter (GLUT_BITMAP_HELVETICA_12, s[i]);
-};
-
-Debug::Debug() {
-    _isDebug = false;
+    return _shouldShowCollBoxes;
 }
 
-Debug::Debug(bool isDebug) {
-    _isDebug = isDebug;
+void Debug::setShouldShowCollBoxes(bool isDebug)
+{
+    _shouldShowCollBoxes = isDebug;
 }
 
-bool Debug::isDebug() {
-    return _isDebug;
+void Debug::toggleShouldShowCollBoxes()
+{
+    _shouldShowCollBoxes = !_shouldShowCollBoxes;
 }
 
-void Debug::setIsDebug(bool isDebug) {
-    _isDebug = isDebug;
+// Affichage des boites de collision pour tous les objets du monde
+void Debug::showCollBoxes() {
+    std::vector<GameObject*> objects = Game::world->getCollObjects();
+    
+    for(int i = 0; i < objects.size(); i++)
+    {
+        objects[i]->drawCollisionBox();
+    }
+}
+
+
+
+// ------------------------------------------------------------------
+//  Affichage des axes
+// ------------------------------------------------------------------
+
+bool Debug::shouldShowAxes()
+{
+    return _shouldShowAxes;
+}
+
+void Debug::setShouldShowAxes(bool isDebug)
+{
+    _shouldShowAxes = isDebug;
+}
+
+void Debug::toggleShouldShowAxes()
+{
+    _shouldShowAxes = !_shouldShowAxes;
 }
 
 void Debug::showAxes() {
@@ -37,38 +70,55 @@ void Debug::showAxes() {
     
     glPushMatrix();
     
+    Game::materials->applyMaterial("black");
+    
     Vec3f axesVec = Game::camera->getPosition() + Game::camera->getDirection() * 10;
     
     glTranslatef(axesVec.getX(), axesVec.getY(), axesVec.getZ());
     
     // Axe x
-    sprintf (label, "x");  // texte
-    glRasterPos3d(1, 0.0, 0.0);
-    dessinChar (label);
+    GlutHelper::renderBitmapString(1, 0, 0, GLUT_BITMAP_HELVETICA_12, "x");
     glBegin(GL_LINES);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(1, 0.0, 0.0);
     glEnd();
     
     // Axe y
-    sprintf (label, "y");  // texte
-    glRasterPos3d(0.0, 1, 0.0);
-    dessinChar (label);
+    GlutHelper::renderBitmapString(0, 1, 0, GLUT_BITMAP_HELVETICA_12, "y");
     glBegin(GL_LINES);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(0.0, 1, 0.0);
     glEnd();
     
     // Axe z
-    sprintf (label, "z");  // texte
-    glRasterPos3d(0.0, 0.0, 1);
-    dessinChar (label);
+    GlutHelper::renderBitmapString(0, 0, 1, GLUT_BITMAP_HELVETICA_12, "z");
     glBegin(GL_LINES);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(0.0, 0.0, 1);
     glEnd();
     
+    Game::materials->restorePrevMaterial();
+    
     glPopMatrix();
+}
+
+// ------------------------------------------------------------------
+//  Affichage des infos de debug
+// ------------------------------------------------------------------
+
+bool Debug::shouldShowDebugInfos()
+{
+    return _shouldShowDebugInfos;
+}
+
+void Debug::setShouldShowDebugInfos(bool isDebug)
+{
+    _shouldShowDebugInfos = isDebug;
+}
+
+void Debug::toggleShouldShowDebugInfos()
+{
+    _shouldShowDebugInfos = !_shouldShowDebugInfos;
 }
 
 void Debug::showDebugInfos()
@@ -76,13 +126,6 @@ void Debug::showDebugInfos()
     Game::scrInfos->set("01_camX", "Camera X : %f", Game::camera->getX());
     Game::scrInfos->set("02_camY", "Camera Y : %f", Game::camera->getY());
     Game::scrInfos->set("03_camZ", "Camera Z : %f", Game::camera->getZ());
-    //Game::scrInfos->set("04_camAngle", "Camera angle : %f", Game::camera->getAngle());
-    
-    //Game::scrInfos->set("05_sep1", "------------------------");
-    
-    //Game::scrInfos->set("06_camTerrX", "Terrain x: %f", terrainX);
-    //Game::scrInfos->set("07_camTerrY", "Terrain y: %f", terrainY);
-    //Game::scrInfos->set("08_camTerrZ", "Terrain z: %f", terrainZ);
     
     Game::scrInfos->set("09_sep", "------------------------");
     
@@ -94,5 +137,30 @@ void Debug::showDebugInfos()
     
     Game::scrInfos->set("14_fps", "FPS: %d", Game::stats->getFPS());
     
-    Game::scrInfos->drawScreenInfos(Game::window->width, Game::window->height);
+    Game::scrInfos->set("16_sep", "------------------------");
+    
+    Game::scrInfos->set("17_nbDays", "Jours passes: %d", Game::stats->getNbDays());
+    
+    std::string dayPeriod = "jour";
+    
+    if(Game::stats->getDayPeriod() == 1)
+    {
+        dayPeriod = "coucher de soleil";
+    }
+    else if(Game::stats->getDayPeriod() == 2)
+    {
+        dayPeriod = "nuit";
+    }
+    else if(Game::stats->getDayPeriod() == 3)
+    {
+        dayPeriod = "leve de soleil";
+    }
+    
+    Game::scrInfos->set("18_dayPeriod", "Periode de la journee: %s", dayPeriod.c_str());
+    
+    Game::materials->applyMaterial("black");
+    
+    Game::scrInfos->draw();
+    
+    Game::materials->restorePrevMaterial();
 }

@@ -10,25 +10,36 @@
 #define __HEIGVD_InfoGR_Projet__Debug__
 
 #include "main.h"
+#include <vector>
 #include "Game.h"
 #include "Camera.h"
+#include "World.h"
 #include "ScreenInfos.h"
 #include "Terrain.h"
+#include "GameObject.h"
 
 class Debug
 {
 private:
-    bool _isDebug = false;
+    bool _shouldShowCollBoxes = false;
+    bool _shouldShowAxes = false;
+    bool _shouldShowDebugInfos = false;
     
 public:
-    Debug();
-    Debug(bool isDebug);
+    bool shouldShowCollBoxes();
+    void setShouldShowCollBoxes(bool isDebug);
+    void toggleShouldShowCollBoxes();
     
-    bool isDebug();
-    void setIsDebug(bool isDebug);
+    bool shouldShowAxes();
+    void setShouldShowAxes(bool isDebug);
+    void toggleShouldShowAxes();
     
+    bool shouldShowDebugInfos();
+    void setShouldShowDebugInfos(bool isDebug);
+    void toggleShouldShowDebugInfos();
+    
+    void showCollBoxes();
     void showAxes();
-    
     void showDebugInfos();
 };
 

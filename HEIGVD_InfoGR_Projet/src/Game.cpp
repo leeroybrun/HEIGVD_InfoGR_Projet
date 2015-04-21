@@ -6,6 +6,14 @@
 //  Copyright (c) 2015 Leeroy Brun. All rights reserved.
 //
 
+// ------------------------------------------------------------------
+//  Classe Game
+//
+//  Cette classe contient des propriétés statiques vers tous les
+//  objets importants du jeu. Elle permet d'accéder à l'instance
+//  en cours de chaque classe du jeu.
+// ------------------------------------------------------------------
+
 #include "Game.h"
 
 Textures *Game::textures;
@@ -18,3 +26,5 @@ World *Game::world;
 Window *Game::window;
 Keyboard *Game::keyboard;
 Player *Game::player;
+Materials *Game::materials;
+Scores *Game::scores;

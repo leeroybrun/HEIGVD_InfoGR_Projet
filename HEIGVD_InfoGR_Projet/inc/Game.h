@@ -29,6 +29,8 @@ class Stats;
 class World;
 class Keyboard;
 class Player;
+class Materials;
+class Scores;
 
 struct Window
 {
@@ -52,6 +54,8 @@ public:
     static Window *window;
     static Keyboard *keyboard;
     static Player *player;
+    static Materials *materials;
+    static Scores *scores;
 };
 
 #endif /* defined(__HEIGVD_InfoGR_Projet__Game__) */
